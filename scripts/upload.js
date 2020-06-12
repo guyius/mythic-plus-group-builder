@@ -1,6 +1,6 @@
 // Quick uploading to DB when needed to convert json to DB.
 const mongo = require('mongodb').MongoClient;
-const url = 'mongodb://guyius:Chopa27112g@ds351807.mlab.com:51807/mythic-plus';
+const url = process.env.MONGO_URL;
 
 const json = [];
 

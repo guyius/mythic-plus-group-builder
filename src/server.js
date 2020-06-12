@@ -1,18 +1,30 @@
 import express from 'express';
 import React from 'react';
+import mongoose from 'mongoose';
 import { StaticRouter } from 'react-router-dom';
 import { renderToString } from 'react-dom/server';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import mythicPlusApp from './store/rootReducer';
-import App from "./app";
+import App from "./App";
 import api from './server/api';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 const store = createStore(mythicPlusApp);
 const initialState = store.getState();
 const server = express();
+
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(result => {
+    console.log(
+      `Connected to Mongo DB, URL =>  ${process.env.MONGO_URL}`
+    );
+  })
+  .catch(error => {
+    console.log("Cant connect to Mongo DB", error);
+  });
 
 server
   .disable('x-powered-by')
