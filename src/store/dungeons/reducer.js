@@ -1,8 +1,7 @@
 import * as actions from './actions'
-import { dungeonsData } from '../../components/DungeonSelection/constants';
 
 const initialState = {
-  dungeons: dungeonsData,
+  dungeons: {},
   selected: {},
   keyLevel: null,
 };

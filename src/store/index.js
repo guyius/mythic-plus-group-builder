@@ -1,17 +1,18 @@
+import { createStore, applyMiddleware } from "redux";
+import createSagaMiddleware from "redux-saga";
 
-import { createStore, applyMiddleware } from 'redux';
-import createSagaMiddleware from 'redux-saga'
+import searchRootSaga from "./search/saga";
+import playerRootSaga from "./player/saga";
+import rootReducer from "./rootReducer";
 
-import searchRootSaga from './search/saga';
-import playerRootSaga from './player/saga';
-import rootReducer from './rootReducer';
-const initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : rootReducer;
-delete window.__INITIAL_STATE__;
 const sagaMiddleware = createSagaMiddleware();
-
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+const preloadedState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {};
+delete window.__INITIAL_STATE__;
+
 export const store = createStore(
-  initialState,
+  rootReducer,
+  preloadedState,
   composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 

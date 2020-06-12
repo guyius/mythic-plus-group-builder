@@ -3,16 +3,13 @@ import React from 'react';
 import mongoose from 'mongoose';
 import { StaticRouter } from 'react-router-dom';
 import { renderToString } from 'react-dom/server';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import mythicPlusApp from './store/rootReducer';
+import { createStoreForClient } from "./server/getDerivedState";
 import App from "./App";
 import api from './server/api';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
-const store = createStore(mythicPlusApp);
-const initialState = store.getState();
 const server = express();
 
 mongoose
@@ -30,8 +27,8 @@ server
   .disable('x-powered-by')
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .use('/api', api)
-  .get('/*', (req, res) => {
-    const context = {};
+  .get('/*', async (req, res) => {
+    const { store, context, initialState } = await createStoreForClient();
     const markup = renderToString(
       <Provider store={store}>
         <StaticRouter context={context} location={req.url}>
@@ -65,6 +62,9 @@ server
     <body>
         <div id="root">${markup}</div>
     </body>
+    <script>
+      window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
+    </script>
 </html>`
       );
     }

@@ -7,4 +7,4 @@ export default combineReducers({
   search: searchReducer,
   player: playerReducer,
   dungeons: dungeonsReducer
-})
+});

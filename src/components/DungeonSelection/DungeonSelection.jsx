@@ -2,36 +2,36 @@ import React from "react";
 import { cx, css } from "emotion";
 import { connect } from 'react-redux';
 
-import { setDungeons, selectDungeon, setKeyLevel } from '../../store/dungeons/actions';
+import { selectDungeon, setKeyLevel } from '../../store/dungeons/actions';
 import KeySelection from "./KeySelection";
 
-function DungeonSelectionConnect({ setDungeons, selectDungeon, setKeyLevel, dungeonsState }) {
+function DungeonSelectionConnect({ selectDungeon, setKeyLevel, dungeonsState }) {
   const { dungeons, selected, keyLevel } = dungeonsState;
 
-  const onSelect = (dungeon) => selected.dungeon_slug ? selectDungeon({}) : selectDungeon(dungeon);
+  const onSelect = (dungeon) => selected.slug ? selectDungeon({}) : selectDungeon(dungeon);
   const onSetKeyLevel = (level) => setKeyLevel(level);
   return (
     <nav className={Styles.dungeonsListNavStyle}>
       <ul
         className={cx(
-          selected.dungeon_slug
+          selected.slug
             ? Styles.singleItemStyle
             : Styles.dungeonsListStyle
         )}
       >
-        {selected.dungeon_slug ? (
+        {selected.slug ? (
           <DungeonItem dungeon={selected} onSelect={onSelect} />
         ) : (
           dungeons.map((dungeon) => (
             <DungeonItem
-              key={dungeon.dungeon_slug}
+              key={dungeon.slug}
               dungeon={dungeon}
               onSelect={onSelect}
             />
           ))
         )}
       </ul>
-      {selected.dungeon_slug && (
+      {selected.slug && (
         <>
           <KeySelection keyLevel={keyLevel} onSelect={onSetKeyLevel}/>
           <button
@@ -47,16 +47,16 @@ function DungeonSelectionConnect({ setDungeons, selectDungeon, setKeyLevel, dung
 }
 
 function DungeonItem({ dungeon, onSelect }) {
-  const { dungeon_slug } = dungeon;
+  const { slug } = dungeon;
   const imageUrl = "https://cdnassets.raider.io/images/dungeons/";
   return (
     <li className={Styles.itemStyle} onClick={() => onSelect(dungeon)}>
       <img
         className={Styles.dungeonImageStyle}
-        src={`${imageUrl}${dungeon_slug}.jpg`}
-        alt={`${dungeon_slug}`}
+        src={`${imageUrl}${slug}.jpg`}
+        alt={`${slug}`}
       />
-      <p className={Styles.dungeonOverlayStyle}>{dungeon_slug}</p>
+      <p className={Styles.dungeonOverlayStyle}>{slug}</p>
     </li>
   );
 }
@@ -65,7 +65,7 @@ const mapStateToProps = state => ({
 	dungeonsState: state.dungeons,
 });
 
-const mapDispatchToProps = { setDungeons, selectDungeon, setKeyLevel };
+const mapDispatchToProps = { selectDungeon, setKeyLevel };
 
 const DungeonSelection = connect(
 	mapStateToProps,
