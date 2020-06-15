@@ -7,6 +7,7 @@ function PlayerConnect({playerState}) {
     
   return (
     <div className={playerStyle}>
+      <p>This is the player content</p>
       <p>{name}</p>
       <p>{score}</p>
       <p>{realm}</p>
