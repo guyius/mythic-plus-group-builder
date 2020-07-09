@@ -8,8 +8,10 @@ import KeySelection from "./KeySelection";
 function DungeonSelectionConnect({ selectDungeon, setKeyLevel, dungeonsState }) {
   const { dungeons, selected, keyLevel } = dungeonsState;
 
-  const onSelect = (dungeon) => selected.slug ? selectDungeon({}) : selectDungeon(dungeon);
+  const onSelect = (dungeon) => selected.slug ? clearSelection() : selectDungeon(dungeon);
   const onSetKeyLevel = (level) => setKeyLevel(level);
+  const clearSelection = () => selectDungeon({}) && onSetKeyLevel(2);
+
   return (
     <nav className={Styles.dungeonsListNavStyle}>
       <ul
@@ -36,7 +38,7 @@ function DungeonSelectionConnect({ selectDungeon, setKeyLevel, dungeonsState }) 
           <KeySelection keyLevel={keyLevel} onSelect={onSetKeyLevel}/>
           <button
             className={Styles.removeSelect}
-            onClick={onSelect}
+            onClick={clearSelection}
           >
             Choose another dungeon
           </button>        
