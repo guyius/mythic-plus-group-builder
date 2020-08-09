@@ -6,7 +6,7 @@ const server = http.createServer(app);
 
 let currentApp = app;
 console.log("The port is with process", process.env.PORT);
-console.log("The port is with server.get", server.get('port'));
+console.log("The port is with server.get", app.get('port'));
 server
   .listen(process.env.PORT || 3000, () => {
     console.log('🚀 started');
