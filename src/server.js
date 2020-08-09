@@ -23,7 +23,6 @@ mongoose
   });
 
 server
-  .set('port', (process.env.PORT || 5000))
   .disable('x-powered-by')
   .use(
     express.static(process.env.NODE_ENV==='production' ? path.join(__dirname, '../build/public') : 'public')
