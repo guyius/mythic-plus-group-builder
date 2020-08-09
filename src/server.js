@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import path from 'path';
 
 import { getContext, createHTML } from "./server/renderInitialApp";
 import api from './server/api';
@@ -23,7 +24,9 @@ mongoose
 
 server
   .disable('x-powered-by')
-  .use(express.static('public'))  
+  .use(
+    express.static(process.env.NODE_ENV==='production' ? path.join(__dirname, '../build/public') : 'public')
+  )  
   .use('/api', api)
   .get('/*', async (req, res) => {
     const context = getContext();
