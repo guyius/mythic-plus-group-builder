@@ -51,6 +51,7 @@ function DungeonSelectionConnect({ selectDungeon, setKeyLevel, dungeonsState }) 
 function DungeonItem({ dungeon, onSelect }) {
   const { slug } = dungeon;
   const imageUrl = "https://cdnassets.raider.io/images/dungeons/";
+  const name = slug.split("-").join(" ");
   return (
     <li className={Styles.itemStyle} onClick={() => onSelect(dungeon)}>
       <img
@@ -58,7 +59,7 @@ function DungeonItem({ dungeon, onSelect }) {
         src={`${imageUrl}${slug}.jpg`}
         alt={`${slug}`}
       />
-      <p className={Styles.dungeonOverlayStyle}>{slug}</p>
+      <p className={Styles.dungeonOverlayStyle}>{name}</p>
     </li>
   );
 }
@@ -88,7 +89,7 @@ const Styles = {
     grid-template-columns: 33% 33% 33%;
     column-gap: 10px;
     row-gap: 10px;
-    grid-template-rows: 100px;
+    grid-template-rows: 150px;
     grid-template-areas: ". a .";
   `,
 
@@ -96,7 +97,7 @@ const Styles = {
     list-style: none;
     display: grid;
     grid-template-columns: 33% 33% 33%;
-    grid-template-rows: 100px 100px 100px 100px;
+    grid-template-rows: 150px 150px 150px 150px;
     column-gap: 10px;
     row-gap: 10px;
   `,
@@ -118,11 +119,15 @@ const Styles = {
   dungeonOverlayStyle: css`
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(0,  -50%);
     margin: 0;
     color: #ffffff;
     cursor: pointer;
+    text-transform: capitalize;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
   `,
   
   removeSelect: css`

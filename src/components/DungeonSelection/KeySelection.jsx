@@ -27,11 +27,15 @@ export default KeySelection;
 
 const Styles = {
   keySelectionWrapper: css`
-    width: 40%;
+    width: 50%;
     margin: 50px auto;
+    padding-left: 40px;
   `,
 
-  keyValue: css`color: #fff;`,
+  keyValue: css`
+    color: #fff;
+    text-align: center;
+  `,
 
   slider: css`
     width: 100%;
