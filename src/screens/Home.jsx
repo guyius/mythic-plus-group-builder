@@ -1,15 +1,11 @@
 import React from "react";
 
-import DungeonSelection from "../components/DungeonSelection";
-import Search from "../components/Search";
-import Player from "../components/Player";
+import HighScores from "../components/HighScores";
 
 function Home() {
   return (
       <div className="Home">  
-        <DungeonSelection />      
-        <Search />
-        <Player />
+        <HighScores />      
       </div>
   );
 }

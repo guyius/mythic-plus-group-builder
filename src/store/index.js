@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 
-import searchRootSaga from "./search/saga";
+import scoresRootSaga from "./scores/saga";
 import playerRootSaga from "./player/saga";
 import rootReducer from "./rootReducer";
 
@@ -16,5 +16,5 @@ export const store = createStore(
   composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 
-sagaMiddleware.run(searchRootSaga);
+sagaMiddleware.run(scoresRootSaga);
 sagaMiddleware.run(playerRootSaga);

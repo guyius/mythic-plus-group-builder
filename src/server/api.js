@@ -32,7 +32,8 @@ api.get('/character/:id/:region', async (req, res) => {
   res.send({ data });
 });
 
-api.post('/world', (req, res) => {
+api.put('/update-scores', (req, res) => {
+  console.log(req.body);
   res.send(
     `I received your POST request. This is what you sent me: ${req.body.post}`,
   );

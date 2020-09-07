@@ -15,13 +15,13 @@ export const getContext = () => {
 const createStoreForClient = async () => {
   const store = createStore(mythicPlusApp);
   const context = getContext();
-  const dungeons = await models.Dungeon.getAll();
+  const levels = await models.Scores.getAll();
   const initialState = store.getState();
 
-  initialState.dungeons = {
-    dungeons,
-    selected: {},
-    keyLevel: null,
+  initialState.scores = {
+    levels,
+    loading: false,
+    error: '',
   };
 
   return { store, context, initialState };
@@ -47,7 +47,7 @@ export const createHTML = async (assets, req) => {
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta charset="utf-8" />
-        <title>Mythic Plus Easy Group</title>
+        <title>Tony Hawk High Scores</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         ${
           assets.client.css
