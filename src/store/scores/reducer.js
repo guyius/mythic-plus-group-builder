@@ -9,13 +9,23 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case actions.SET_SCORE:
-        return { ...state, loading: true }
+        return { 
+          ...state, 
+          levels: {
+            ...state.levels,
+            [action.level]: {
+            ...state.levels[action.level],
+            scores: {
+              ...state.levels[action.level].scores,
+              [action.player]: action.newScore
+            }
+          }
+          },
+          loading: true,
+          error: ''
+        }
     case actions.SCORE_SUCCEED:
-      return { 
-        ...state, 
-        [levels[action.level][action.scores]]: action.scores,
-        loading: false 
-      }
+      return { ...state, loading: false, error: '' }
     case actions.SCORE_FAILED:
       return { ...state, error: action.error, loading: false }
     default:

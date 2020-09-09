@@ -1,16 +1,5 @@
 import mongoose from 'mongoose';
 
-const scoreSchema = new mongoose.Schema(
-  {
-    name: {
-      type: "string",
-    },
-    score: {
-      type: "number"
-    }
-  }
-)
-
 const scoresSchema = new mongoose.Schema(
   {
     id: {
@@ -27,7 +16,10 @@ const scoresSchema = new mongoose.Schema(
     imageUrl: {
       type: "string",
     },
-    scores: [scoreSchema]
+    scores: {
+      type: Map,
+      of: String
+    }
   },
 );
 

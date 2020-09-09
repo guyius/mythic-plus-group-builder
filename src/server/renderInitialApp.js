@@ -15,7 +15,13 @@ export const getContext = () => {
 const createStoreForClient = async () => {
   const store = createStore(mythicPlusApp);
   const context = getContext();
-  const levels = await models.Scores.getAll();
+  const levelsRaw = await models.Scores.getAll();
+  const levels = levelsRaw.reduce((obj, item) => {
+    return {
+      ...obj,
+      [item.name]: {scores: item.scores, imageUrl: item.imageUrl}
+    };
+  }, {});
   const initialState = store.getState();
 
   initialState.scores = {
