@@ -38,14 +38,15 @@ function HighScoresConnect({ setScore, scoresState }) {
               {Object.keys(inputValues[level].scores).map(scorerName => (
                 <li className={styles.HighScoreListValue} key={scorerName}>
                   <p>{scorerName}</p>
-                  <form onSubmit={e => onSetScores(e, scorerName, level)}>
-                    <input className={styles.input}
+                  <form className={styles.Form} onSubmit={e => onSetScores(e, scorerName, level)}>
+                    <input className={styles.Input}
                         type="text" 
                         placeholder="Update your high score"
                         value={inputValues[level].scores[scorerName]}
                         onChange={e => onChange(e, scorerName, level)} 
-                        onBlur={e => onSetScores(e, scorerName, level)}/>
-                    {loading && <Logo className={styles.logo}/>}
+                        onBlur={e => onSetScores(e, scorerName, level)}
+                        disabled={loading === level}/>
+                    {loading === level && <Logo className={styles.logo}/>}
                     {error && <p>{error}</p>}      
                   </form>
                 </li>
@@ -94,11 +95,9 @@ const styles = {
   `,
   HighScoreOverlayStyle: css`
     position: absolute;
-    top: 50%;
-    transform: translate(0,  -50%);
+    top: 10%;
     margin: 0;
     color: #ffffff;
-    cursor: pointer;
     text-transform: capitalize;
     width: 100%;
     text-align: center;
@@ -126,7 +125,12 @@ const styles = {
     }
     > p {
       margin: 0;
+      text-transform: capitalize;
+      align-self: center;
     }
+  `,
+  Form: css`
+    position: relative;
   `,
   Input: css`
     height:30px;
@@ -134,12 +138,13 @@ const styles = {
     font-size: inherit;
     color: inherit;
     border: 1px solid rgba(0,0,0,.125);
+    padding: 10px;
   `,
   logo: css`
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     position: absolute;
-    top: 4px;
-    right: 20px;
+    top: 3px;
+    right: 10px;
   `,
 }

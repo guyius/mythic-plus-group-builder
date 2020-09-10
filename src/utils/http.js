@@ -8,19 +8,16 @@ export async function get(url, params = {}) {
   }
 }
 
-export async function httpPut(url, body = {}) {
+export async function post(url, data = {}) {
   try {
     const response = await fetch(url, {
-      method: 'PUT',
-      mode: 'cors',
-      cache: 'no-cache',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(data)
     });
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (e) {    
     return e;
   }

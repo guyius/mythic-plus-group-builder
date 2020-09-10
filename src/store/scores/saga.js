@@ -1,12 +1,12 @@
 import { put, takeLatest, all } from 'redux-saga/effects';
 
-import { httpPut } from '../../utils/http'
+import { post } from '../../utils/http'
 import { scoreSucceed, scoreFailed} from './actions';
 
 function* scoreSaga(action) {
-  const { score } = action;
+  const { level, player, newScore } = action;
   try {
-    const { data } = yield httpPut('/api/update-scores', score, );
+    const { data } = yield post('/api/update-scores', {level, player, score: newScore});
     yield put (scoreSucceed(data));
   } catch (e) {
     yield put (scoreFailed(e.message));

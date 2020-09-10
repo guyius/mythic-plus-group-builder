@@ -2,7 +2,7 @@ import * as actions from './actions'
 
 const initialState = {
   levels: {},
-  loading: false,
+  loading: "",
   error: '',
 };
 
@@ -21,13 +21,13 @@ export default function (state = initialState, action) {
             }
           }
           },
-          loading: true,
+          loading: action.level,
           error: ''
         }
     case actions.SCORE_SUCCEED:
-      return { ...state, loading: false, error: '' }
+      return { ...state, loading: "", error: '' }
     case actions.SCORE_FAILED:
-      return { ...state, error: action.error, loading: false }
+      return { ...state, error: action.error, loading: "" }
     default:
       return state
   }
