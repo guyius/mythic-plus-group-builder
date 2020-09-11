@@ -13,7 +13,7 @@ delete window.__INITIAL_STATE__;
 export const store = createStore(
   rootReducer,
   preloadedState,
-  composeEnhancers(applyMiddleware(sagaMiddleware))
+  composeEnhancers ? composeEnhancers(applyMiddleware(sagaMiddleware)) : applyMiddleware(sagaMiddleware)
 );
 
 sagaMiddleware.run(scoresRootSaga);
