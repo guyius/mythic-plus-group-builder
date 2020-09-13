@@ -35,7 +35,9 @@ function HighScoresConnect({ setScore, scoresState }) {
             <img className={styles.HighScoreImage}src={inputValues[level].imageUrl} alt="level image"/>
             <p className={styles.HighScoreOverlayStyle}>{level}</p>
               <ul className={styles.HighScoreListValues}>
-              {Object.keys(inputValues[level].scores).map(scorerName => (
+              {Object.keys(inputValues[level].scores)
+              .sort((a, b) => inputValues[level].scores[b] - inputValues[level].scores[a])
+              .map(scorerName => (
                 <li className={styles.HighScoreListValue} key={scorerName}>
                   <p>{scorerName}</p>
                   <form className={styles.Form} onSubmit={e => onSetScores(e, scorerName, level)}>
