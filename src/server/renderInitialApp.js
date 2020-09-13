@@ -12,16 +12,30 @@ export const getContext = () => {
   return {};
 };
 
-const createStoreForClient = async () => {
-  const store = createStore(mythicPlusApp);
-  const context = getContext();
-  const levelsRaw = await models.Scores.getAll();
-  const levels = levelsRaw.reduce((obj, item) => {
+const buildGameLevels = (levelsList) => {
+  const firstGameLevels = levelsList.filter(level => level.game === 'Tony Hawk 1').sort((a, b) => {
+    if (a.name > b.name) return 1;
+    if (a.name < b.name) return -1;
+    return 0;  
+  });
+  const secondGameLevels = levelsList.filter(level => level.game === 'Tony Hawk 2').sort((a, b) => {
+    if (a.name > b.name) return 1;
+    if (a.name < b.name) return -1;
+    return 0;  
+  });
+  return [...firstGameLevels, ...secondGameLevels].reduce((obj, item) => {
     return {
       ...obj,
       [item.name]: {scores: item.scores, imageUrl: item.imageUrl}
     };
   }, {});
+}
+
+const createStoreForClient = async () => {
+  const store = createStore(mythicPlusApp);
+  const context = getContext();
+  const levelsRaw = await models.Scores.getAll();  
+  const levels = buildGameLevels(levelsRaw);  
   const initialState = store.getState();
 
   initialState.scores = {
