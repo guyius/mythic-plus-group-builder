@@ -77,13 +77,14 @@ export default Search;
 const styles = {
   HighScoresStyle: css`
     margin:0 auto;
-    max-width: 80%;
+    max-width: 90%;
   `,
   HighScoresListStyle: css`
     list-style: none;
     display: grid;    
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     grid-gap: 1rem;
+    padding: 0;
   `,
   HighScoresItemStyle: css`
     display: flex;
