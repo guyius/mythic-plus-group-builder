@@ -81,10 +81,9 @@ const styles = {
   `,
   HighScoresListStyle: css`
     list-style: none;
-    display: grid;
-    grid-template-columns: 33% 33% 33%;
-    column-gap: 20px;
-    row-gap: 20px;
+    display: grid;    
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-gap: 1rem;
   `,
   HighScoresItemStyle: css`
     display: flex;
@@ -93,7 +92,7 @@ const styles = {
   `,
   HighScoreImage: css`
     width: 100%;
-    height: 67%;
+    height: auto;
   `,
   HighScoreOverlayStyle: css`
     position: absolute;
@@ -105,6 +104,7 @@ const styles = {
     text-align: center;
     font-size: 20px;
     font-weight: bold;
+    -webkit-text-stroke: 0.5px black;
   `,
   HighScoreListValues: css`
     padding: 0;
