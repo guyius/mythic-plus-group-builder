@@ -1,4 +1,4 @@
-import React,  {useState} from "react";
+import React,  { useState } from "react";
 import { css } from 'emotion'
 import { connect } from 'react-redux';
 
@@ -8,29 +8,48 @@ import { ReactComponent as Logo } from '../../assets/loader.svg';
 function HighScoresConnect({ setScore, scoresState }) {   
   const { loading, error, levels } = scoresState;
   const [inputValues, setInputValues] = useState(levels);
-
+  const filters = ["All", "Tony Hawk 1", "Tony Hawk 2"];
+  const [currentFilter, setCurrentFilter] = useState(filters[0]);
   const onChange = (e, scorerName, level) => {
     setInputValues({
-    ...inputValues, 
-    [level]: {
-      ...inputValues[level],
-      scores: {
-        ...inputValues[level].scores,
-        [scorerName]: e.target.value
+      ...inputValues, 
+      [level]: {
+        ...inputValues[level],
+        scores: {
+          ...inputValues[level].scores,
+          [scorerName]: e.target.value
+        }
       }
-    }
-  });
-}
-
+    });
+  }
+    
   const onSetScores = (e, scorerName, level) => {
     e.preventDefault();
     const newScore = inputValues[level].scores[scorerName];
     newScore && setScore(newScore, level, scorerName);
   } 
+
   return (
     <div className={styles.HighScoresStyle}>
+      <div className={styles.FiltersBox}>        
+        <ul className={styles.FiltersList}>
+          <li>Filter by game</li>
+          {filters.map(filter => (
+            <li key={filter}>
+              <label>
+              <input type="radio" 
+                value={filter} 
+                onChange={() => setCurrentFilter(filter)}
+                checked={currentFilter === filter}/>
+                {filter}
+              </label>
+            </li>
+          ))}
+        </ul>
+      </div>
       <ul className={styles.HighScoresListStyle}>
-      {Object.keys(inputValues).map(level => (
+      {Object.keys(inputValues).map(level => (        
+        currentFilter !== "All" && inputValues[level].game !== currentFilter ? null :
         <li className={styles.HighScoresItemStyle} key={level}>
             <img className={styles.HighScoreImage}src={inputValues[level].imageUrl} alt="level image"/>
             <p className={styles.HighScoreOverlayStyle}>{level}</p>
@@ -78,6 +97,18 @@ const styles = {
   HighScoresStyle: css`
     margin:0 auto;
     max-width: 90%;
+  `,
+  FiltersBox: css`
+    margin: 0 auto;
+  `,
+  FiltersList: css`
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    > li {
+      padding: 10px;
+    }
   `,
   HighScoresListStyle: css`
     list-style: none;

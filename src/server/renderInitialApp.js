@@ -26,7 +26,7 @@ const buildGameLevels = (levelsList) => {
   return [...firstGameLevels, ...secondGameLevels].reduce((obj, item) => {
     return {
       ...obj,
-      [item.name]: {scores: item.scores, imageUrl: item.imageUrl}
+      [item.name]: {scores: item.scores, imageUrl: item.imageUrl, game: item.game}
     };
   }, {});
 }
@@ -68,6 +68,7 @@ export const createHTML = async (assets, req) => {
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta charset="utf-8" />
         <title>Tony Hawk High Scores</title>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         ${
           assets.client.css
@@ -83,7 +84,7 @@ export const createHTML = async (assets, req) => {
     <body>
         <div id="root">${markup}</div>
     </body>
-    <script>
+    <script>      
       window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
     </script>
 </html>`
