@@ -2,7 +2,6 @@ import { createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 
 import scoresRootSaga from "./scores/saga";
-import playerRootSaga from "./player/saga";
 import rootReducer from "./rootReducer";
 
 const sagaMiddleware = createSagaMiddleware();
@@ -17,4 +16,3 @@ export const store = createStore(
 );
 
 sagaMiddleware.run(scoresRootSaga);
-sagaMiddleware.run(playerRootSaga);
