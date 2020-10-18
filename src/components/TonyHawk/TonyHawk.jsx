@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { setScore } from '../../store/scores/actions';
 import { ReactComponent as Logo } from '../../assets/loader.svg';
 
-function HighScoresConnect({ setScore, scoresState }) {   
+function TonyHawkConnect({ setScore, scoresState }) {   
   const { loading, error, levels } = scoresState;
   const [inputValues, setInputValues] = useState(levels);
   const filters = ["All", "Tony Hawk 1", "Tony Hawk 2"];
@@ -86,12 +86,12 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = { setScore };
 
-const Search = connect(
+const TonyHawk = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(HighScoresConnect);
+)(TonyHawkConnect);
 
-export default Search;
+export default TonyHawk;
 
 const styles = {
   HighScoresStyle: css`
