@@ -1,6 +1,5 @@
-import Dungeon from './dungeon';
 import Scores from './scores';
 
-const models = { Dungeon, Scores };
+const models = { Scores };
 
 export default models;
